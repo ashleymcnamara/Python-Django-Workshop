@@ -1,5 +1,7 @@
 Python-Django-Workshop
 ======================
-Colin and Ashley working together
+Colin and Ashley Pair Programming
+Possibly the Nerdiest date ever
 
-Hackbright Django Workshop
+Django Workshop hosted at HackBright SF
+
