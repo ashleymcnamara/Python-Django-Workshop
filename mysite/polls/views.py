@@ -39,13 +39,12 @@ def vote(request, poll_id):
 			'poll': p,
 			'error_message': "You didn't select a choice.",
 		})
-		else:
-			selected_choice.votes += 1
-			selected_choice.save()
-			# Always return an HttpResponseRedirect after successfully dealing
-			# with POST data. This prevents data from being posted twice if a 
-			# user hits the Back button.
-			return HttpResponseRedirect(reverse('polls:results', args=(p.id,)))
-
+	else:
+		selected_choice.votes += 1
+		selected_choice.save()
+		# Always return an HttpResponseRedirect after successfully dealing
+		# with POST data. This prevents data from being posted twice if a 
+		# user hits the Back button.
+		return HttpResponseRedirect(reverse('polls:results', args=(p.id,)))
 
 # Create your views here.
