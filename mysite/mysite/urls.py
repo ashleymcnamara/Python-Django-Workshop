@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     #The idea behind include() is to make 
     # it easy to plug-and-play URLs
     url(r'^$', views.index, name='index'),
-    url(r'^polls/', include('polls.urls')),
+    url(r'^polls/', include('polls.urls', namespace="polls")),
     url(r'^admin/', include(admin.site.urls)),
 )
 
