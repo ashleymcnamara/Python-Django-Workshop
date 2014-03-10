@@ -1,37 +1,24 @@
 
 from django.shortcuts import get_object_or_404, render
-# from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-#from django.template import RequestContext, loader
 from django.views import generic
+from django.utils import timezone
+
 
 from polls.models import Choice, Poll
-
-#change
-# def index(request):
-#     latest_poll_list = Poll.objects.all().order_by('-pub_date')[:5]
-#     context = {'latest_poll_list': latest_poll_list}
-#     return render(request, 'polls/index.html', context)
-
-#change
-# def detail(request, poll_id):
-# 	poll = get_object_or_404(Poll, pk=poll_id)
-# 	return render(request, 'polls/detail.html', {'poll': poll})
-
-#change
-# def results(request, poll_id):
-# 	# return HttpResponse("You're looking at the results of poll %s." % poll_id)
-# 	poll = get_object_or_404(Poll, pk=poll_id)
-# 	return render(request, 'polls/result.html', {'poll': poll})
 
 class IndexView(generic.ListView):
 	template_name = 'polls/index.html'
 	context_object_name = 'latest_poll_list'
 
 	def get_queryset(self):
-		""" Return the last five published polls. """
-		return Poll.objects.order_by('-pub_date')[:5]
+		""" Return the last five published polls. (not including
+			those to be published in the future)
+		"""
+		return Poll.objects.filter(
+			pub_date__lte=timezone.now()
+		).order_by('-pub_date')[:5]
 
 class DetailView(generic.DetailView):
 	model = Poll

@@ -88,6 +88,17 @@ class PollViewTests(TestCase):
         	response.context['latest_poll_list'],
         	['<Poll: Past poll.>']
         )
+	def test_index_view_with_two_past_polls(self):
+		"""
+        The polls index page may display multiple polls.
+        """
+        create_poll(question="Past poll 1.", days=-30)
+        create_poll(question="Past poll 2.", days=-5)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+        	response.context['latest_poll_list'],
+        	['<Poll: Past poll 2.>', '<Poll: Past poll 1.>']
+        ) 
 
 
 
